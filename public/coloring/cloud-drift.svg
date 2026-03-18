@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" fill="none" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="140" cy="150" r="70" />
+<circle cx="260" cy="150" r="60" />
+<circle cx="200" cy="120" r="80" />
+<circle cx="170" cy="170" r="50" />
+<circle cx="230" cy="170" r="56" />
+<ellipse cx="200" cy="160" rx="100" ry="50" fill="white" stroke="none" />
+<path d="M100,160 Q140,210 200,206 Q260,210 300,160" />
+<circle cx="496" cy="120" r="63" />
+<circle cx="604" cy="120" r="54" />
+<circle cx="550" cy="93" r="72" />
+<circle cx="523" cy="138" r="45" />
+<circle cx="577" cy="138" r="50.4" />
+<ellipse cx="550" cy="129" rx="90" ry="45" fill="white" stroke="none" />
+<path d="M460,129 Q496,174 550,170.4 Q604,174 640,129" />
+<circle cx="314" cy="250" r="77" />
+<circle cx="446" cy="250" r="66" />
+<circle cx="380" cy="217" r="88" />
+<circle cx="347" cy="272" r="55.00000000000001" />
+<circle cx="413" cy="272" r="61.60000000000001" />
+<ellipse cx="380" cy="261" rx="110.00000000000001" ry="55.00000000000001" fill="white" stroke="none" />
+<path d="M270,261 Q314,316 380,311.6 Q446,316 490,261" />
+<circle cx="105" cy="350" r="52.5" />
+<circle cx="195" cy="350" r="45" />
+<circle cx="150" cy="327.5" r="60" />
+<circle cx="127.5" cy="365" r="37.5" />
+<circle cx="172.5" cy="365" r="42" />
+<ellipse cx="150" cy="357.5" rx="75" ry="37.5" fill="white" stroke="none" />
+<path d="M75,357.5 Q105,395 150,392 Q195,395 225,357.5" />
+<circle cx="549" cy="320" r="59.5" />
+<circle cx="651" cy="320" r="51" />
+<circle cx="600" cy="294.5" r="68" />
+<circle cx="574.5" cy="337" r="42.5" />
+<circle cx="625.5" cy="337" r="47.6" />
+<ellipse cx="600" cy="328.5" rx="85" ry="42.5" fill="white" stroke="none" />
+<path d="M515,328.5 Q549,371 600,367.6 Q651,371 685,328.5" />
+<circle cx="240" cy="430" r="70" />
+<circle cx="360" cy="430" r="60" />
+<circle cx="300" cy="400" r="80" />
+<circle cx="270" cy="450" r="50" />
+<circle cx="330" cy="450" r="56" />
+<ellipse cx="300" cy="440" rx="100" ry="50" fill="white" stroke="none" />
+<path d="M200,440 Q240,490 300,486 Q360,490 400,440" />
+<circle cx="452" cy="480" r="56" />
+<circle cx="548" cy="480" r="48" />
+<circle cx="500" cy="456" r="64" />
+<circle cx="476" cy="496" r="40" />
+<circle cx="524" cy="496" r="44.800000000000004" />
+<ellipse cx="500" cy="488" rx="80" ry="40" fill="white" stroke="none" />
+<path d="M420,488 Q452,528 500,524.8 Q548,528 580,488" />
+<circle cx="126" cy="550" r="63" />
+<circle cx="234" cy="550" r="54" />
+<circle cx="180" cy="523" r="72" />
+<circle cx="153" cy="568" r="45" />
+<circle cx="207" cy="568" r="50.4" />
+<ellipse cx="180" cy="559" rx="90" ry="45" fill="white" stroke="none" />
+<path d="M90,559 Q126,604 180,600.4 Q234,604 270,559" />
+<circle cx="608" cy="540" r="49" />
+<circle cx="692" cy="540" r="42" />
+<circle cx="650" cy="519" r="56" />
+<circle cx="629" cy="554" r="35" />
+<circle cx="671" cy="554" r="39.199999999999996" />
+<ellipse cx="650" cy="547" rx="70" ry="35" fill="white" stroke="none" />
+<path d="M580,547 Q608,582 650,579.2 Q692,582 720,547" />
+<circle cx="337" cy="620" r="73.5" />
+<circle cx="463" cy="620" r="63" />
+<circle cx="400" cy="588.5" r="84" />
+<circle cx="368.5" cy="641" r="52.5" />
+<circle cx="431.5" cy="641" r="58.800000000000004" />
+<ellipse cx="400" cy="630.5" rx="105" ry="52.5" fill="white" stroke="none" />
+<path d="M295,630.5 Q337,683 400,678.8 Q463,683 505,630.5" />
+<circle cx="205" cy="700" r="52.5" />
+<circle cx="295" cy="700" r="45" />
+<circle cx="250" cy="677.5" r="60" />
+<circle cx="227.5" cy="715" r="37.5" />
+<circle cx="272.5" cy="715" r="42" />
+<ellipse cx="250" cy="707.5" rx="75" ry="37.5" fill="white" stroke="none" />
+<path d="M175,707.5 Q205,745 250,742 Q295,745 325,707.5" />
+<circle cx="493" cy="680" r="66.5" />
+<circle cx="607" cy="680" r="57" />
+<circle cx="550" cy="651.5" r="76" />
+<circle cx="521.5" cy="699" r="47.5" />
+<circle cx="578.5" cy="699" r="53.199999999999996" />
+<ellipse cx="550" cy="689.5" rx="95" ry="47.5" fill="white" stroke="none" />
+<path d="M455,689.5 Q493,737 550,733.2 Q607,737 645,689.5" />
+</svg>

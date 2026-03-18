@@ -65,7 +65,7 @@ export default function TodayPage() {
             backgroundPosition: "center",
           }}
         />
-        <div className="pointer-events-none absolute inset-0 bg-bg-deep/60" />
+        <div className="pointer-events-none absolute inset-0 bg-bg-deep/40" />
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center px-6 pt-36 pb-24">

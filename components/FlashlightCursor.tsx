@@ -10,6 +10,15 @@ export default function FlashlightCursor() {
     // Hide on touch devices
     if ("ontouchstart" in window) return;
 
+    // Force-hide native cursor via a persistent style tag with a 1x1 transparent PNG.
+    // cursor:none is unreliable — browsers restore the default arrow after clicks/focus.
+    // A transparent cursor image is rendered faithfully at all times.
+    const transparentCursor = `url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=") 0 0, none`;
+    const style = document.createElement("style");
+    style.id = "hide-native-cursor";
+    style.textContent = `html, *, *::before, *::after { cursor: ${transparentCursor} !important; }`;
+    document.head.appendChild(style);
+
     const onMove = (e: MouseEvent) => {
       if (cursorRef.current) {
         cursorRef.current.style.left = `${e.clientX}px`;
@@ -30,14 +39,22 @@ export default function FlashlightCursor() {
       if (glowRef.current) glowRef.current.style.opacity = "0.4";
     };
 
+    // Re-enforce transparent cursor whenever the window regains focus
+    const onFocus = () => {
+      document.documentElement.style.cursor = transparentCursor;
+    };
+
     window.addEventListener("mousemove", onMove);
     document.addEventListener("mouseleave", onLeave);
     document.addEventListener("mouseenter", onEnter);
+    window.addEventListener("focus", onFocus);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
+      window.removeEventListener("focus", onFocus);
+      style.remove();
     };
   }, []);
 

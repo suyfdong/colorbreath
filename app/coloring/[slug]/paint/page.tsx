@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { coloringPages, moodMeta } from "@/data/coloringPages";
+import { coloringPages, moodMeta, getColoringImage } from "@/data/coloringPages";
 import { useParams } from "next/navigation";
 
 /* ── Flood fill (BFS, tolerance-based for anti-aliased edges) ── */
@@ -103,14 +103,10 @@ export default function PaintPage() {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
-    // Draw the mandala SVG
-    const svgStr = buildMandalaSvg();
-    const blob = new Blob([svgStr], { type: "image/svg+xml" });
-    const url = URL.createObjectURL(blob);
+    // Load the page-specific coloring SVG
     const img = new Image();
     img.onload = () => {
       ctx.drawImage(img, 0, 0, CANVAS_SIZE, CANVAS_SIZE);
-      URL.revokeObjectURL(url);
 
       // Try restore from localStorage
       const saved = localStorage.getItem(`colorbreath-paint-${slug}`);
@@ -127,7 +123,7 @@ export default function PaintPage() {
         setLoaded(true);
       }
     };
-    img.src = url;
+    img.src = getColoringImage(slug);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
@@ -207,17 +203,13 @@ export default function PaintPage() {
     const ctx = canvas.getContext("2d")!;
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    const svgStr = buildMandalaSvg();
-    const blob = new Blob([svgStr], { type: "image/svg+xml" });
-    const url = URL.createObjectURL(blob);
     const img = new Image();
     img.onload = () => {
       ctx.drawImage(img, 0, 0, CANVAS_SIZE, CANVAS_SIZE);
-      URL.revokeObjectURL(url);
       pushHistory(ctx);
       localStorage.removeItem(`colorbreath-paint-${slug}`);
     };
-    img.src = url;
+    img.src = getColoringImage(slug);
   }, [pushHistory, slug]);
 
   // Keyboard shortcuts
@@ -374,47 +366,4 @@ export default function PaintPage() {
       </footer>
     </div>
   );
-}
-
-/* ── Generate mandala SVG string (matches MandalaSvg component) ── */
-function buildMandalaSvg(): string {
-  const layers = [
-    { r: 140, count: 12, petalW: 18, petalH: 55 },
-    { r: 95, count: 8, petalW: 14, petalH: 40 },
-    { r: 55, count: 6, petalW: 10, petalH: 28 },
-  ];
-
-  let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="800" height="800" fill="none" stroke="black" stroke-width="1.5">`;
-
-  // Outer circles
-  svg += `<circle cx="200" cy="200" r="185" opacity="0.6"/>`;
-  svg += `<circle cx="200" cy="200" r="170" opacity="0.5"/>`;
-
-  // Petal layers
-  for (let li = 0; li < layers.length; li++) {
-    const layer = layers[li];
-    for (let i = 0; i < layer.count; i++) {
-      const angle = (360 / layer.count) * i;
-      const cy = 200 - layer.r + layer.petalH / 2;
-      svg += `<ellipse cx="200" cy="${cy}" rx="${layer.petalW / 2}" ry="${layer.petalH / 2}" transform="rotate(${angle} 200 200)" opacity="${0.7 - li * 0.1}"/>`;
-    }
-  }
-
-  // Guide circles
-  svg += `<circle cx="200" cy="200" r="140" opacity="0.3"/>`;
-  svg += `<circle cx="200" cy="200" r="95" opacity="0.3"/>`;
-  svg += `<circle cx="200" cy="200" r="55" opacity="0.3"/>`;
-  svg += `<circle cx="200" cy="200" r="25" opacity="0.5"/>`;
-
-  // Rays
-  for (let i = 0; i < 12; i++) {
-    const angle = (360 / 12) * i;
-    svg += `<line x1="200" y1="200" x2="200" y2="180" transform="rotate(${angle} 200 200)" opacity="0.4"/>`;
-  }
-
-  // Center
-  svg += `<circle cx="200" cy="200" r="3" fill="black" stroke="none" opacity="0.6"/>`;
-  svg += `</svg>`;
-
-  return svg;
 }

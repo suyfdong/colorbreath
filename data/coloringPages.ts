@@ -15,6 +15,11 @@ export interface ColoringPage {
   bgImage: string;
 }
 
+/** Get the coloring SVG path for a page */
+export function getColoringImage(slug: string): string {
+  return `/coloring/${slug}.svg`;
+}
+
 export const moodMeta: Record<Mood, { label: string; color: string; phrase: string }> = {
   calm: { label: "Calm", color: "#b5a7c8", phrase: "Find your center" },
   sleep: { label: "Sleep", color: "#7e8db5", phrase: "Evening peace" },
@@ -40,7 +45,7 @@ export const coloringPages: ColoringPage[] = [
     description: "A symmetrical lotus mandala designed for centered, meditative coloring. Let each petal guide your breath.",
     audioTitle: "Gentle Rain & Piano",
     audioDuration: "22 min",
-    bgImage: "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=1920&q=60&auto=format",
+    bgImage: "/bg/lotus-meditation.jpg",
   },
   {
     slug: "morning-dew-roses",
@@ -51,7 +56,7 @@ export const coloringPages: ColoringPage[] = [
     description: "Delicate rose petals with dewdrops. A gentle, unhurried pattern for quiet mornings.",
     audioTitle: "Forest Stream",
     audioDuration: "18 min",
-    bgImage: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=1920&q=60&auto=format",
+    bgImage: "/bg/morning-dew-roses.jpg",
   },
   {
     slug: "still-water-circles",
@@ -62,7 +67,7 @@ export const coloringPages: ColoringPage[] = [
     description: "Concentric ripples expanding outward. Simple, soothing, like watching rain on a pond.",
     audioTitle: "Lake Ambience",
     audioDuration: "25 min",
-    bgImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=60&auto=format",
+    bgImage: "/bg/still-water-circles.jpg",
   },
   {
     slug: "whispering-ferns",
@@ -73,7 +78,7 @@ export const coloringPages: ColoringPage[] = [
     description: "Unfurling fern fronds in a repeating pattern. Each leaf a quiet meditation.",
     audioTitle: "Soft Wind & Leaves",
     audioDuration: "20 min",
-    bgImage: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=60&auto=format",
+    bgImage: "/bg/whispering-ferns.jpg",
   },
   // — Sleep —
   {
@@ -85,7 +90,7 @@ export const coloringPages: ColoringPage[] = [
     description: "Night-blooming flowers under a crescent moon. Soft, sparse lines to ease you into rest.",
     audioTitle: "Night Cricket Lullaby",
     audioDuration: "30 min",
-    bgImage: "https://images.unsplash.com/photo-1532767153582-b1a0e5145009?w=1920&q=60&auto=format",
+    bgImage: "/bg/moonlit-garden.jpg",
   },
   {
     slug: "starfield-mandala",
@@ -96,7 +101,7 @@ export const coloringPages: ColoringPage[] = [
     description: "A simple mandala with star and moon motifs. Minimal detail, maximum calm.",
     audioTitle: "Deep Sleep Waves",
     audioDuration: "35 min",
-    bgImage: "https://images.unsplash.com/photo-1475274047050-1d0c55b7e22c?w=1920&q=60&auto=format",
+    bgImage: "/bg/starfield-mandala.jpg",
   },
   {
     slug: "cloud-drift",
@@ -107,7 +112,7 @@ export const coloringPages: ColoringPage[] = [
     description: "Soft, billowing cloud shapes. No sharp edges, no complexity — just floating ease.",
     audioTitle: "White Noise & Breathing",
     audioDuration: "40 min",
-    bgImage: "https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=1920&q=60&auto=format",
+    bgImage: "/bg/cloud-drift.jpg",
   },
   // — Energy —
   {
@@ -119,7 +124,7 @@ export const coloringPages: ColoringPage[] = [
     description: "Bold radiating lines and tessellations inspired by the first light of day.",
     audioTitle: "Upbeat Lo-fi Morning",
     audioDuration: "15 min",
-    bgImage: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1920&q=60&auto=format",
+    bgImage: "/bg/sunrise-geometry.jpg",
   },
   {
     slug: "wildflower-burst",
@@ -130,7 +135,7 @@ export const coloringPages: ColoringPage[] = [
     description: "An exuberant explosion of wildflowers. Intricate petals and stamens for focused engagement.",
     audioTitle: "Acoustic Guitar & Birds",
     audioDuration: "18 min",
-    bgImage: "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=1920&q=60&auto=format",
+    bgImage: "/bg/wildflower-burst.jpg",
   },
   {
     slug: "kaleidoscope-fire",
@@ -141,7 +146,7 @@ export const coloringPages: ColoringPage[] = [
     description: "A complex kaleidoscope of angular shapes and flame-like forms. For when you want to feel alive.",
     audioTitle: "Lo-fi Focus Beat",
     audioDuration: "20 min",
-    bgImage: "https://images.unsplash.com/photo-1504198453319-5ce911bafcde?w=1920&q=60&auto=format",
+    bgImage: "/bg/kaleidoscope-fire.jpg",
   },
   // — Comfort —
   {
@@ -153,7 +158,7 @@ export const coloringPages: ColoringPage[] = [
     description: "Interlocking weave patterns reminiscent of a cozy knit blanket. Repetitive and grounding.",
     audioTitle: "Fireplace Crackle",
     audioDuration: "25 min",
-    bgImage: "https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?w=1920&q=60&auto=format",
+    bgImage: "/bg/warm-blanket-weave.jpg",
   },
   {
     slug: "tea-garden-botanicals",
@@ -164,7 +169,7 @@ export const coloringPages: ColoringPage[] = [
     description: "Chamomile, lavender, and mint leaves arranged in a garden pattern. Warmth in every stroke.",
     audioTitle: "Warm Piano & Rain",
     audioDuration: "22 min",
-    bgImage: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=1920&q=60&auto=format",
+    bgImage: "/bg/tea-garden-botanicals.jpg",
   },
   {
     slug: "nesting-circles",
@@ -175,7 +180,7 @@ export const coloringPages: ColoringPage[] = [
     description: "Simple, nested circular forms that feel like a warm embrace. No sharp corners, no rush.",
     audioTitle: "Soft Guitar Hum",
     audioDuration: "20 min",
-    bgImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1920&q=60&auto=format",
+    bgImage: "/bg/nesting-circles.jpg",
   },
   {
     slug: "forest-floor",
@@ -186,7 +191,7 @@ export const coloringPages: ColoringPage[] = [
     description: "Mushrooms, fallen leaves, and acorns in a woodland floor scene. Earthy and nurturing.",
     audioTitle: "Woodland Ambience",
     audioDuration: "28 min",
-    bgImage: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&q=60&auto=format",
+    bgImage: "/bg/forest-floor.jpg",
   },
 ];
 

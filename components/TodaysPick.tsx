@@ -1,6 +1,7 @@
 import Link from "next/link";
 import MandalaSvg from "./MandalaSvg";
 import ScrollReveal from "./ScrollReveal";
+import { getTodaysPick, moodMeta } from "@/data/coloringPages";
 
 function WaveformBar() {
   const bars = 60;
@@ -30,19 +31,21 @@ function WaveformBar() {
 }
 
 export default function TodaysPick() {
+  const todayPage = getTodaysPick();
+  const mood = moodMeta[todayPage.mood];
+
   return (
     <section className="relative flex flex-col items-center px-6 py-28 md:py-40">
-      {/* Background scene */}
+      {/* Background scene — fixed image, not tied to daily pick */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1500673922987-e212871fec22?w=1920&q=60&auto=format')",
+          backgroundImage: "url('/bg/lotus-meditation.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       />
-      <div className="pointer-events-none absolute inset-0 bg-bg-deep/60" />
+      <div className="pointer-events-none absolute inset-0 bg-bg-deep/50" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center">
@@ -59,7 +62,7 @@ export default function TodaysPick() {
         </ScrollReveal>
         <ScrollReveal animation="fade-up" delay={100}>
           <h2 className="mb-16 text-center font-[family-name:var(--font-heading)] text-3xl font-normal text-text-primary md:mb-20 md:text-4xl">
-            Lotus Meditation
+            {todayPage.title}
           </h2>
         </ScrollReveal>
 
@@ -69,8 +72,7 @@ export default function TodaysPick() {
             <div
               className="absolute inset-0 scale-150 opacity-50 blur-3xl"
               style={{
-                background:
-                  "radial-gradient(circle, rgba(201,168,124,0.25) 0%, transparent 60%)",
+                background: `radial-gradient(circle, ${mood.color}40 0%, transparent 60%)`,
               }}
             />
             <MandalaSvg className="relative h-72 w-72 drop-shadow-[0_0_60px_rgba(237,232,226,0.08)] md:h-[22rem] md:w-[22rem]" />
@@ -80,13 +82,25 @@ export default function TodaysPick() {
         {/* Mood tag + difficulty */}
         <ScrollReveal animation="fade-up" delay={300}>
           <div className="mb-10 flex items-center gap-4">
-            <span className="rounded-full border border-mood-calm/40 px-5 py-2 text-sm font-light tracking-wide text-mood-calm">
-              Calm
+            <span
+              className="rounded-full border px-5 py-2 text-sm font-light tracking-wide"
+              style={{ borderColor: `${mood.color}66`, color: mood.color }}
+            >
+              {mood.label}
             </span>
             <div className="flex gap-2">
-              <span className="h-1.5 w-5 rounded-full bg-accent-amber/50" />
-              <span className="h-1.5 w-5 rounded-full bg-accent-amber/50" />
-              <span className="h-1.5 w-5 rounded-full bg-accent-amber/20" />
+              {[1, 2, 3].map((d) => (
+                <span
+                  key={d}
+                  className="h-1.5 w-5 rounded-full"
+                  style={{
+                    backgroundColor:
+                      d <= todayPage.difficulty
+                        ? "rgba(201,168,124,0.5)"
+                        : "rgba(201,168,124,0.2)",
+                  }}
+                />
+              ))}
             </div>
           </div>
         </ScrollReveal>
@@ -96,7 +110,7 @@ export default function TodaysPick() {
           <div className="mb-14">
             <WaveformBar />
             <p className="mt-4 text-center text-sm font-light text-text-secondary">
-              Gentle Rain &amp; Piano &middot; 22 min
+              {todayPage.audioTitle} &middot; {todayPage.audioDuration}
             </p>
           </div>
         </ScrollReveal>
