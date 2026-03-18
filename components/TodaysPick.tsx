@@ -42,7 +42,7 @@ export default function TodaysPick() {
           backgroundPosition: "center",
         }}
       />
-      <div className="pointer-events-none absolute inset-0 bg-bg-deep/75" />
+      <div className="pointer-events-none absolute inset-0 bg-bg-deep/60" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center">
