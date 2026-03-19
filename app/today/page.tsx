@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FlashlightCursor from "@/components/FlashlightCursor";
 import ScrollReveal from "@/components/ScrollReveal";
-import MandalaSvg from "@/components/MandalaSvg";
+import ColoringPreview from "@/components/ColoringPreview";
 import { coloringPages, getTodaysPick, moodMeta, styleMeta } from "@/data/coloringPages";
 
 function WaveformBar() {
@@ -98,16 +98,16 @@ export default function TodayPage() {
             </p>
           </ScrollReveal>
 
-          {/* Mandala preview with glow */}
+          {/* Preview with glow */}
           <ScrollReveal animation="scale-up" delay={400}>
             <div className="relative mb-16 md:mb-20">
               <div
-                className="absolute inset-0 scale-150 opacity-50 blur-3xl"
+                className="pointer-events-none absolute inset-0 scale-[1.4] opacity-30 blur-3xl"
                 style={{
-                  background: `radial-gradient(circle, ${mood.color}40 0%, transparent 60%)`,
+                  background: `radial-gradient(circle, ${mood.color}50 0%, transparent 60%)`,
                 }}
               />
-              <MandalaSvg className="relative h-72 w-72 drop-shadow-[0_0_60px_rgba(237,232,226,0.08)] md:h-[22rem] md:w-[22rem]" />
+              <ColoringPreview slug={page.slug} className="relative h-72 w-72 md:h-[22rem] md:w-[22rem]" />
             </div>
           </ScrollReveal>
 
@@ -213,9 +213,7 @@ export default function TodayPage() {
               return (
                 <ScrollReveal key={offset} animation="fade-up" delay={offset * 100}>
                   <div className="flex items-center gap-4 rounded-xl bg-bg-elevated/50 p-4 transition-colors duration-500 hover:bg-bg-elevated">
-                    <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-white/[0.04]">
-                      <MandalaSvg className="h-10 w-10 opacity-50" />
-                    </div>
+                    <ColoringPreview slug={upcoming.slug} className="h-14 w-14 flex-shrink-0" />
                     <div className="flex flex-col gap-1">
                       <span className="font-[family-name:var(--font-heading)] text-sm text-text-primary">
                         {upcoming.title}

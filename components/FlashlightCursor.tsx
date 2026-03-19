@@ -13,10 +13,11 @@ export default function FlashlightCursor() {
     // Force-hide native cursor via a persistent style tag with a 1x1 transparent PNG.
     // cursor:none is unreliable — browsers restore the default arrow after clicks/focus.
     // A transparent cursor image is rendered faithfully at all times.
+    // Excludes paint page via html[data-paint-mode].
     const transparentCursor = `url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=") 0 0, none`;
     const style = document.createElement("style");
     style.id = "hide-native-cursor";
-    style.textContent = `html, *, *::before, *::after { cursor: ${transparentCursor} !important; }`;
+    style.textContent = `html:not([data-paint-mode]) *, html:not([data-paint-mode]) *::before, html:not([data-paint-mode]) *::after { cursor: ${transparentCursor} !important; }`;
     document.head.appendChild(style);
 
     const onMove = (e: MouseEvent) => {
@@ -39,9 +40,11 @@ export default function FlashlightCursor() {
       if (glowRef.current) glowRef.current.style.opacity = "0.4";
     };
 
-    // Re-enforce transparent cursor whenever the window regains focus
+    // Re-enforce transparent cursor whenever the window regains focus (skip on paint page)
     const onFocus = () => {
-      document.documentElement.style.cursor = transparentCursor;
+      if (!document.documentElement.hasAttribute("data-paint-mode")) {
+        document.documentElement.style.cursor = transparentCursor;
+      }
     };
 
     window.addEventListener("mousemove", onMove);

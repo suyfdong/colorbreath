@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FlashlightCursor from "@/components/FlashlightCursor";
 import ScrollReveal from "@/components/ScrollReveal";
-import MandalaSvg from "@/components/MandalaSvg";
+import ColoringPreview from "@/components/ColoringPreview";
 import { coloringPages, moodMeta, styleMeta } from "@/data/coloringPages";
 
 export function generateStaticParams() {
@@ -93,16 +93,16 @@ export default async function ColoringDetailPage({
             </p>
           </ScrollReveal>
 
-          {/* Large mandala preview */}
+          {/* Large preview */}
           <ScrollReveal animation="scale-up" delay={300}>
             <div className="relative mb-16 md:mb-20">
               <div
-                className="absolute inset-0 scale-[1.8] opacity-40 blur-3xl"
+                className="pointer-events-none absolute inset-0 scale-[1.4] opacity-30 blur-3xl"
                 style={{
-                  background: `radial-gradient(circle, ${mood.color}35 0%, transparent 60%)`,
+                  background: `radial-gradient(circle, ${mood.color}50 0%, transparent 60%)`,
                 }}
               />
-              <MandalaSvg className="relative h-80 w-80 drop-shadow-[0_0_80px_rgba(237,232,226,0.06)] md:h-[26rem] md:w-[26rem]" />
+              <ColoringPreview slug={page.slug} className="relative h-80 w-80 md:h-[26rem] md:w-[26rem]" />
             </div>
           </ScrollReveal>
 
@@ -208,9 +208,7 @@ export default async function ColoringDetailPage({
                         href={`/coloring/${r.slug}`}
                         className="group flex flex-col items-center gap-4 rounded-xl bg-bg-elevated/50 p-6 transition-all duration-500 hover:-translate-y-1 hover:bg-bg-elevated hover:shadow-xl hover:shadow-black/30"
                       >
-                        <div className="relative">
-                          <MandalaSvg className="h-24 w-24 opacity-50 transition-opacity duration-500 group-hover:opacity-80" />
-                        </div>
+                        <ColoringPreview slug={r.slug} className="h-24 w-24 transition-transform duration-500 group-hover:-translate-y-1" />
                         <span className="font-[family-name:var(--font-heading)] text-sm text-text-primary">
                           {r.title}
                         </span>

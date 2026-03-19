@@ -1,12 +1,12 @@
 import Link from "next/link";
-import MandalaSvg from "./MandalaSvg";
+import ColoringPreview from "./ColoringPreview";
 import ScrollReveal from "./ScrollReveal";
 import { getTodaysPick, moodMeta } from "@/data/coloringPages";
 
 function WaveformBar() {
-  const bars = 60;
+  const bars = 40;
   return (
-    <div className="flex h-12 items-end gap-[2.5px]">
+    <div className="flex h-8 items-end gap-[2px]">
       {Array.from({ length: bars }).map((_, i) => {
         const center = bars / 2;
         const dist = Math.abs(i - center) / center;
@@ -14,7 +14,7 @@ function WaveformBar() {
         return (
           <div
             key={i}
-            className="w-[2.5px] rounded-full bg-accent-amber/40"
+            className="w-[2px] rounded-full bg-accent-amber/40"
             style={{
               height: `${height * 100}%`,
               animationName: "wave-bar",
@@ -36,7 +36,7 @@ export default function TodaysPick() {
 
   return (
     <section className="relative flex flex-col items-center px-6 py-28 md:py-40">
-      {/* Background scene — fixed image, not tied to daily pick */}
+      {/* Background scene */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
@@ -61,72 +61,77 @@ export default function TodaysPick() {
           </p>
         </ScrollReveal>
         <ScrollReveal animation="fade-up" delay={100}>
-          <h2 className="mb-16 text-center font-[family-name:var(--font-heading)] text-3xl font-normal text-text-primary md:mb-20 md:text-4xl">
+          <h2 className="mb-6 text-center font-[family-name:var(--font-heading)] text-3xl font-normal text-text-primary md:text-4xl">
             {todayPage.title}
           </h2>
         </ScrollReveal>
 
-        {/* Mandala preview with glow */}
+        {/* Description */}
+        <ScrollReveal animation="fade-in" delay={150}>
+          <p className="mb-12 max-w-md text-center text-sm font-light leading-relaxed text-text-secondary md:mb-14">
+            {todayPage.description}
+          </p>
+        </ScrollReveal>
+
+        {/* Card: preview + meta side by side on desktop, stacked on mobile */}
         <ScrollReveal animation="scale-up" delay={200}>
-          <div className="relative mb-16 md:mb-20">
-            <div
-              className="absolute inset-0 scale-150 opacity-50 blur-3xl"
-              style={{
-                background: `radial-gradient(circle, ${mood.color}40 0%, transparent 60%)`,
-              }}
-            />
-            <MandalaSvg className="relative h-72 w-72 drop-shadow-[0_0_60px_rgba(237,232,226,0.08)] md:h-[22rem] md:w-[22rem]" />
-          </div>
-        </ScrollReveal>
-
-        {/* Mood tag + difficulty */}
-        <ScrollReveal animation="fade-up" delay={300}>
-          <div className="mb-10 flex items-center gap-4">
-            <span
-              className="rounded-full border px-5 py-2 text-sm font-light tracking-wide"
-              style={{ borderColor: `${mood.color}66`, color: mood.color }}
-            >
-              {mood.label}
-            </span>
-            <div className="flex gap-2">
-              {[1, 2, 3].map((d) => (
-                <span
-                  key={d}
-                  className="h-1.5 w-5 rounded-full"
-                  style={{
-                    backgroundColor:
-                      d <= todayPage.difficulty
-                        ? "rgba(201,168,124,0.5)"
-                        : "rgba(201,168,124,0.2)",
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* Waveform */}
-        <ScrollReveal animation="fade-in" delay={400}>
-          <div className="mb-14">
-            <WaveformBar />
-            <p className="mt-4 text-center text-sm font-light text-text-secondary">
-              {todayPage.audioTitle} &middot; {todayPage.audioDuration}
-            </p>
-          </div>
-        </ScrollReveal>
-
-        {/* CTA Button */}
-        <ScrollReveal animation="fade-up" delay={500}>
           <Link
             href="/today"
-            className="group inline-flex items-center gap-3 rounded-full bg-white/90 px-7 py-3.5 text-bg-deep shadow-lg shadow-black/15 transition-all duration-500 hover:bg-white hover:shadow-xl hover:shadow-black/25"
+            className="group flex flex-col items-center gap-8 rounded-2xl bg-bg-elevated/60 p-6 backdrop-blur-sm transition-all duration-700 hover:-translate-y-1 hover:bg-bg-elevated/80 hover:shadow-2xl hover:shadow-black/40 sm:flex-row sm:gap-10 sm:p-8"
           >
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-bg-deep text-white transition-transform duration-500 group-hover:scale-110">
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-              </svg>
-            </span>
-            <span className="text-sm font-medium tracking-wide">Begin your ritual</span>
+            {/* Small preview */}
+            <div className="relative flex-shrink-0">
+              <div
+                className="pointer-events-none absolute inset-0 scale-[1.6] opacity-20 blur-2xl"
+                style={{
+                  background: `radial-gradient(circle, ${mood.color}60 0%, transparent 60%)`,
+                }}
+              />
+              <ColoringPreview slug={todayPage.slug} className="relative h-44 w-44 md:h-52 md:w-52" />
+            </div>
+
+            {/* Meta info */}
+            <div className="flex flex-col items-center gap-4 sm:items-start">
+              {/* Mood + difficulty */}
+              <div className="flex items-center gap-3">
+                <span
+                  className="rounded-full border px-4 py-1.5 text-xs font-light tracking-wide"
+                  style={{ borderColor: `${mood.color}66`, color: mood.color }}
+                >
+                  {mood.label}
+                </span>
+                <div className="flex gap-1.5">
+                  {[1, 2, 3].map((d) => (
+                    <span
+                      key={d}
+                      className="h-1.5 w-4 rounded-full"
+                      style={{
+                        backgroundColor:
+                          d <= todayPage.difficulty
+                            ? "rgba(201,168,124,0.5)"
+                            : "rgba(201,168,124,0.2)",
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Waveform + audio */}
+              <div>
+                <WaveformBar />
+                <p className="mt-2 text-xs font-light text-text-muted">
+                  {todayPage.audioTitle} &middot; {todayPage.audioDuration}
+                </p>
+              </div>
+
+              {/* Inline CTA */}
+              <div className="flex items-center gap-2 text-sm font-light tracking-wide text-text-secondary transition-colors duration-500 group-hover:text-accent-amber">
+                <span>Begin your ritual</span>
+                <svg className="h-3.5 w-3.5 transition-transform duration-500 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </div>
+            </div>
           </Link>
         </ScrollReveal>
       </div>

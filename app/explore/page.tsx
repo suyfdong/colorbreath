@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FlashlightCursor from "@/components/FlashlightCursor";
 import ScrollReveal from "@/components/ScrollReveal";
-import MandalaSvg from "@/components/MandalaSvg";
+import ColoringPreview from "@/components/ColoringPreview";
 import { coloringPages, moodMeta, styleMeta, type Mood, type Style } from "@/data/coloringPages";
 
 const allMoods = Object.keys(moodMeta) as Mood[];
@@ -134,14 +134,8 @@ function ExploreContent() {
                     className="group relative flex flex-col overflow-hidden rounded-2xl bg-bg-elevated transition-all duration-700 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40"
                   >
                     {/* Preview area */}
-                    <div className="relative flex items-center justify-center bg-white/[0.03] py-12">
-                      <div
-                        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-                        style={{
-                          background: `radial-gradient(circle at center, ${mood.color}15 0%, transparent 70%)`,
-                        }}
-                      />
-                      <MandalaSvg className="relative h-40 w-40 opacity-70 transition-all duration-700 group-hover:opacity-100 group-hover:drop-shadow-[0_0_30px_rgba(237,232,226,0.1)]" />
+                    <div className="relative flex items-center justify-center bg-white/[0.03] p-8">
+                      <ColoringPreview slug={page.slug} className="relative h-44 w-44 transition-all duration-700 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-black/40" />
                     </div>
 
                     {/* Info */}
