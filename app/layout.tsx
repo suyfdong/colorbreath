@@ -30,9 +30,37 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "ColorBreath — Breathe. Color. Be.",
+  metadataBase: new URL("https://colorbreath.com"),
+  title: {
+    default: "ColorBreath — Mindful Adult Coloring Pages for Stress Relief",
+    template: "%s | ColorBreath",
+  },
   description:
-    "A mindful coloring space for your quiet moments. Discover curated coloring pages paired with ambient soundscapes for stress relief, better sleep, and gentle self-care.",
+    "Free printable adult coloring pages paired with ambient soundscapes. Mindfulness coloring for stress relief, better sleep, and gentle self-care. No ads, no rush — just breathe and color.",
+  keywords: [
+    "adult coloring pages",
+    "mindfulness coloring",
+    "printable coloring pages for adults",
+    "stress relief coloring",
+    "mandala coloring pages",
+    "free adult coloring pages",
+    "meditation coloring",
+    "coloring pages printable",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "ColorBreath",
+    title: "ColorBreath — Mindful Adult Coloring Pages for Stress Relief",
+    description:
+      "Free printable coloring pages paired with ambient soundscapes. A mindful coloring space for stress relief, sleep, and self-care.",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({

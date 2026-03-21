@@ -50,6 +50,12 @@ export default function Hero() {
         >
           A mindful coloring space for your quiet moments
         </p>
+        <p
+          className="animate-fade-up mt-3 max-w-sm text-center text-sm font-light text-text-muted/70"
+          style={{ animationDelay: "3.0s" }}
+        >
+          Free printable adult coloring pages &middot; Ambient soundscapes &middot; No ads
+        </p>
 
         {/* CTA Button — micro1 style white pill */}
         <div

@@ -44,12 +44,15 @@ function ExploreContent() {
         </ScrollReveal>
         <ScrollReveal animation="fade-up" delay={100}>
           <h1 className="mb-6 text-center font-[family-name:var(--font-heading)] text-4xl font-normal text-text-primary md:text-5xl">
-            Find your moment
+            Free Printable Coloring Pages for Adults
           </h1>
         </ScrollReveal>
         <ScrollReveal animation="fade-in" delay={200}>
-          <p className="max-w-md text-center font-[family-name:var(--font-guidance)] text-lg font-light italic text-text-secondary">
-            Choose a mood that speaks to you, then let the colors guide the rest.
+          <p className="max-w-lg text-center text-sm font-light leading-relaxed text-text-secondary">
+            Browse our collection of mindfulness coloring pages — mandala
+            patterns, floral designs, and cozy scenes, each paired with ambient
+            sounds. Filter by mood to find the perfect page for stress relief,
+            sleep, or a creative energy boost.
           </p>
         </ScrollReveal>
       </section>
@@ -206,6 +209,27 @@ function ExploreContent() {
             })}
           </div>
         )}
+      </section>
+
+      {/* Bottom SEO content */}
+      <section className="mx-auto max-w-2xl px-6 pb-20 pt-8">
+        <div className="border-t border-bg-surface pt-12 text-center">
+          <h2 className="mb-5 font-[family-name:var(--font-heading)] text-xl font-normal text-text-primary">
+            Coloring as a mindfulness practice
+          </h2>
+          <p className="text-sm font-light leading-relaxed text-text-secondary">
+            Research shows that adult coloring reduces anxiety and promotes a
+            meditative state similar to mindfulness practice. Our coloring pages
+            are designed with large, satisfying fill areas and clean outlines —
+            ideal for colored pencils, fine-tip markers, or digital coloring.
+            Print any page for free or color directly in your browser. New pages
+            are featured daily on our{" "}
+            <Link href="/today" className="text-accent-amber/80 underline underline-offset-2 hover:text-accent-amber">
+              Today
+            </Link>{" "}
+            page.
+          </p>
+        </div>
       </section>
     </main>
   );

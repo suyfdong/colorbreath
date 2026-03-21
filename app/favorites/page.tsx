@@ -1,8 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FlashlightCursor from "@/components/FlashlightCursor";
 import ScrollReveal from "@/components/ScrollReveal";
+
+export const metadata: Metadata = {
+  title: "Our Favorites — Best Coloring Supplies for Adults",
+  description:
+    "Hand-picked colored pencils, markers, paper, and ambiance items for adult coloring. Curated by the ColorBreath team for the best mindful coloring experience.",
+  alternates: { canonical: "/favorites" },
+};
 
 interface Product {
   name: string;

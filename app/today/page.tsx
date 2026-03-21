@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -5,6 +6,13 @@ import FlashlightCursor from "@/components/FlashlightCursor";
 import ScrollReveal from "@/components/ScrollReveal";
 import ColoringPreview from "@/components/ColoringPreview";
 import { coloringPages, getTodaysPick, moodMeta, styleMeta } from "@/data/coloringPages";
+
+export const metadata: Metadata = {
+  title: "Today's Coloring Page — Your Daily Mindfulness Ritual",
+  description:
+    "A new coloring page every day, paired with ambient sounds. Start your mindful coloring ritual — no ads, no pressure, just a quiet moment for yourself.",
+  alternates: { canonical: "/today" },
+};
 
 function WaveformBar() {
   const bars = 60;

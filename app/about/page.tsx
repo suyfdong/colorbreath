@@ -1,9 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FlashlightCursor from "@/components/FlashlightCursor";
 import ScrollReveal from "@/components/ScrollReveal";
 import BreathingCircle from "@/components/BreathingCircle";
+
+export const metadata: Metadata = {
+  title: "About ColorBreath — A Mindful Coloring Space",
+  description:
+    "ColorBreath is a mindful coloring space for adults. No ads, no time pressure — just beautiful coloring pages and ambient sounds for your quiet moments.",
+  alternates: { canonical: "/about" },
+};
 
 export default function AboutPage() {
   return (

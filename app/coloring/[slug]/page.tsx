@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -5,10 +6,35 @@ import Footer from "@/components/Footer";
 import FlashlightCursor from "@/components/FlashlightCursor";
 import ScrollReveal from "@/components/ScrollReveal";
 import ColoringPreview from "@/components/ColoringPreview";
-import { coloringPages, moodMeta, styleMeta } from "@/data/coloringPages";
+import { coloringPages, moodMeta, styleMeta, getColoringImage } from "@/data/coloringPages";
 
 export function generateStaticParams() {
   return coloringPages.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const page = coloringPages.find((p) => p.slug === slug);
+  if (!page) return {};
+
+  const mood = moodMeta[page.mood];
+  const title = `${page.title} — Free Printable ${mood.label} Coloring Page`;
+  const description = `${page.description} A free printable adult coloring page for ${mood.label.toLowerCase()} and mindfulness. Color online or download PDF.`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/coloring/${slug}` },
+    openGraph: {
+      title,
+      description,
+      images: [{ url: getColoringImage(slug), alt: page.title }],
+    },
+  };
 }
 
 function WaveformBar() {
@@ -186,6 +212,25 @@ export default async function ColoringDetailPage({
                 </svg>
                 Download PDF
               </button>
+            </div>
+          </ScrollReveal>
+
+          {/* About this page — SEO content */}
+          <ScrollReveal animation="fade-up" delay={800}>
+            <div className="mt-16 max-w-xl rounded-2xl bg-bg-elevated/30 p-8">
+              <h2 className="mb-4 font-[family-name:var(--font-heading)] text-lg font-normal text-text-primary">
+                About this coloring page
+              </h2>
+              <p className="text-sm font-light leading-relaxed text-text-secondary">
+                &ldquo;{page.title}&rdquo; is a free printable adult coloring
+                page from our {mood.label} collection. This{" "}
+                {styleMeta[page.style].label.toLowerCase()}-style illustration
+                features clean line art with generous white space — designed for
+                colored pencils, markers, or digital coloring. Pair it with the
+                included &ldquo;{page.audioTitle}&rdquo; ambient soundtrack for
+                a complete mindfulness coloring experience. Print at home or
+                color online — no account needed.
+              </p>
             </div>
           </ScrollReveal>
 
