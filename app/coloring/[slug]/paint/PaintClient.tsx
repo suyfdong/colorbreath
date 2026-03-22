@@ -2,7 +2,8 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { coloringPages, getColoringImage } from "@/data/coloringPages";
+import { coloringPages, getColoringImage, getMoodAudio, getMoodVolume } from "@/data/coloringPages";
+import AudioPlayer from "@/components/AudioPlayer";
 import { useParams } from "next/navigation";
 
 /* ── Flood fill (BFS, tolerance-based for anti-aliased edges) ── */
@@ -94,6 +95,8 @@ export default function PaintPage() {
   const [historyIdx, setHistoryIdx] = useState(-1);
   const [loaded, setLoaded] = useState(false);
   const [isPainting, setIsPainting] = useState(false);
+  const [zoom, setZoom] = useState(1);
+  const [showTips, setShowTips] = useState(true);
 
   // Set paint mode on html element — disables flashlight cursor and restores native cursor
   useEffect(() => {
@@ -113,22 +116,13 @@ export default function PaintPage() {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
+    // Clear any old saved state
+
     const img = new Image();
     img.onload = () => {
       ctx.drawImage(img, 0, 0, CANVAS_SIZE, CANVAS_SIZE);
-      const saved = localStorage.getItem(`colorbreath-paint-${slug}`);
-      if (saved) {
-        const restoreImg = new Image();
-        restoreImg.onload = () => {
-          ctx.drawImage(restoreImg, 0, 0);
-          pushHistory(ctx);
-          setLoaded(true);
-        };
-        restoreImg.src = saved;
-      } else {
-        pushHistory(ctx);
-        setLoaded(true);
-      }
+      pushHistory(ctx);
+      setLoaded(true);
     };
     img.src = getColoringImage(slug);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -183,7 +177,6 @@ export default function PaintPage() {
         const [r, g, b] = parseColor(activeColor);
         floodFill(ctx, x, y, [r, g, b, 255]);
         pushHistory(ctx);
-        localStorage.setItem(`colorbreath-paint-${slug}`, canvas.toDataURL());
       } else {
         setIsPainting(true);
         drawBrushDot(ctx, x, y);
@@ -217,7 +210,6 @@ export default function PaintPage() {
       if (canvas) {
         const ctx = canvas.getContext("2d")!;
         pushHistory(ctx);
-        localStorage.setItem(`colorbreath-paint-${slug}`, canvas.toDataURL());
       }
     }
   }, [isPainting, pushHistory, slug]);
@@ -230,7 +222,7 @@ export default function PaintPage() {
     const newIdx = historyIdx - 1;
     ctx.putImageData(history[newIdx], 0, 0);
     setHistoryIdx(newIdx);
-    localStorage.setItem(`colorbreath-paint-${slug}`, canvas.toDataURL());
+
   }, [history, historyIdx, slug]);
 
   const redo = useCallback(() => {
@@ -241,7 +233,7 @@ export default function PaintPage() {
     const newIdx = historyIdx + 1;
     ctx.putImageData(history[newIdx], 0, 0);
     setHistoryIdx(newIdx);
-    localStorage.setItem(`colorbreath-paint-${slug}`, canvas.toDataURL());
+
   }, [history, historyIdx, slug]);
 
   const exportPng = useCallback(() => {
@@ -263,8 +255,7 @@ export default function PaintPage() {
     img.onload = () => {
       ctx.drawImage(img, 0, 0, CANVAS_SIZE, CANVAS_SIZE);
       pushHistory(ctx);
-      localStorage.removeItem(`colorbreath-paint-${slug}`);
-    };
+      };
     img.src = getColoringImage(slug);
   }, [pushHistory, slug]);
 
@@ -418,6 +409,21 @@ export default function PaintPage() {
           </div>
         </div>
 
+        {/* Audio player */}
+        {page && (
+          <div className="border-t border-bg-surface/50 px-4 py-3">
+            <AudioPlayer
+              src={getMoodAudio(page.mood)}
+              title={page.audioTitle}
+              duration={page.audioDuration}
+              defaultVolume={getMoodVolume(page.mood)}
+              bars={24}
+              barHeight={24}
+              compact
+            />
+          </div>
+        )}
+
         {/* Actions at bottom */}
         <div className="border-t border-bg-surface/50 px-4 py-3">
           <div className="flex items-center justify-between">
@@ -468,10 +474,67 @@ export default function PaintPage() {
       </aside>
 
       {/* ── Main canvas area ── */}
-      <main className="flex flex-1 items-center justify-center overflow-hidden p-6">
+      <main className="relative flex flex-1 items-center justify-center overflow-auto p-6">
         {!loaded && (
           <p className="absolute text-sm font-light text-text-muted">Loading...</p>
         )}
+
+        {/* Help tips — bottom left, shown by default */}
+        <div className="absolute left-4 bottom-4 z-20">
+          {showTips ? (
+            <div className="w-56 rounded-xl bg-bg-deep/90 px-5 py-4 shadow-xl backdrop-blur-sm">
+              <div className="mb-2 flex items-center justify-between">
+                <p className="text-xs font-medium text-text-primary">How to color</p>
+                <button
+                  onClick={() => setShowTips(false)}
+                  className="flex h-5 w-5 cursor-pointer items-center justify-center rounded-full text-text-muted transition-colors hover:bg-bg-surface hover:text-text-primary"
+                >
+                  <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="flex flex-col gap-1.5 text-[11px] font-light text-text-secondary">
+                <p>1. Pick a color from the palette</p>
+                <p>2. Tap a white area to fill it</p>
+                <p>3. Switch to Brush for freehand</p>
+                <p>4. Use + / − to zoom into details</p>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={() => setShowTips(true)}
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-bg-primary/80 text-text-secondary backdrop-blur-sm transition-colors hover:bg-bg-surface hover:text-text-primary"
+              title="Help"
+            >
+              <span className="text-sm font-medium">?</span>
+            </button>
+          )}
+        </div>
+
+        {/* Zoom controls */}
+        <div className="absolute right-4 top-4 z-10 flex flex-col gap-1">
+          <button
+            onClick={() => setZoom((z) => Math.min(z + 0.5, 3))}
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg bg-bg-primary/80 text-text-secondary backdrop-blur-sm transition-colors hover:bg-bg-surface hover:text-text-primary"
+            title="Zoom in"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          </button>
+          <span className="text-center text-[10px] text-text-muted">{Math.round(zoom * 100)}%</span>
+          <button
+            onClick={() => setZoom((z) => Math.max(z - 0.5, 1))}
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg bg-bg-primary/80 text-text-secondary backdrop-blur-sm transition-colors hover:bg-bg-surface hover:text-text-primary"
+            title="Zoom out"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
+            </svg>
+          </button>
+        </div>
+
         <canvas
           ref={canvasRef}
           width={CANVAS_SIZE}
@@ -480,13 +543,16 @@ export default function PaintPage() {
           onMouseMove={handleCanvasMove}
           onMouseUp={handleCanvasUp}
           onMouseLeave={handleCanvasUp}
-          className="max-h-full max-w-full rounded-lg shadow-2xl shadow-black/40"
+          className="rounded-lg shadow-2xl shadow-black/40"
           style={{
+            maxHeight: zoom === 1 ? "100%" : "none",
+            maxWidth: zoom === 1 ? "100%" : "none",
+            height: zoom > 1 ? `${zoom * 100}%` : undefined,
             aspectRatio: "1/1",
             opacity: loaded ? 1 : 0,
             transition: "opacity 0.5s ease",
             imageRendering: "auto",
-            cursor: tool === "brush" ? "crosshair" : "cell",
+            cursor: "crosshair",
           }}
         />
       </main>

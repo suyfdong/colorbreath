@@ -5,7 +5,8 @@ import Footer from "@/components/Footer";
 import FlashlightCursor from "@/components/FlashlightCursor";
 import ScrollReveal from "@/components/ScrollReveal";
 import ColoringPreview from "@/components/ColoringPreview";
-import { coloringPages, getTodaysPick, moodMeta, styleMeta } from "@/data/coloringPages";
+import { coloringPages, getTodaysPick, moodMeta, styleMeta, getMoodAudio, getMoodVolume } from "@/data/coloringPages";
+import AudioPlayer from "@/components/AudioPlayer";
 
 export const metadata: Metadata = {
   title: "Today's Coloring Page — Your Daily Mindfulness Ritual",
@@ -157,11 +158,15 @@ export default function TodayPage() {
 
           {/* Waveform + audio */}
           <ScrollReveal animation="fade-in" delay={700}>
-            <div className="mb-14 flex flex-col items-center">
-              <WaveformBar />
-              <p className="mt-4 text-center text-sm font-light text-text-secondary">
-                {page.audioTitle} &middot; {page.audioDuration}
-              </p>
+            <div className="mb-14">
+              <AudioPlayer
+                src={getMoodAudio(page.mood)}
+                title={page.audioTitle}
+                duration={page.audioDuration}
+                defaultVolume={getMoodVolume(page.mood)}
+                bars={60}
+                barHeight={48}
+              />
             </div>
           </ScrollReveal>
 

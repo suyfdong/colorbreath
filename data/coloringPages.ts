@@ -20,6 +20,18 @@ export function getColoringImage(slug: string): string {
   return `/coloring/${slug}.webp`;
 }
 
+/** Get audio file path for a mood */
+export function getMoodAudio(mood: Mood): string {
+  return `/audio/${mood}.mp3`;
+}
+
+/** Get default volume for a mood (sleep is quieter) */
+export function getMoodVolume(mood: Mood): number {
+  if (mood === "sleep") return 0.2;
+  if (mood === "calm") return 0.3;
+  return 0.35;
+}
+
 export const moodMeta: Record<Mood, { label: string; color: string; phrase: string }> = {
   calm: { label: "Calm", color: "#b5a7c8", phrase: "Find your center" },
   sleep: { label: "Sleep", color: "#7e8db5", phrase: "Evening peace" },

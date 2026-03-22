@@ -6,7 +6,8 @@ import Footer from "@/components/Footer";
 import FlashlightCursor from "@/components/FlashlightCursor";
 import ScrollReveal from "@/components/ScrollReveal";
 import ColoringPreview from "@/components/ColoringPreview";
-import { coloringPages, moodMeta, styleMeta, getColoringImage } from "@/data/coloringPages";
+import { coloringPages, moodMeta, styleMeta, getColoringImage, getMoodAudio, getMoodVolume } from "@/data/coloringPages";
+import AudioPlayer from "@/components/AudioPlayer";
 
 export function generateStaticParams() {
   return coloringPages.map((p) => ({ slug: p.slug }));
@@ -179,11 +180,13 @@ export default async function ColoringDetailPage({
 
           {/* Audio section */}
           <ScrollReveal animation="fade-in" delay={600}>
-            <div className="mb-16 flex flex-col items-center">
-              <WaveformBar />
-              <p className="mt-4 text-center text-sm font-light text-text-secondary">
-                {page.audioTitle} &middot; {page.audioDuration}
-              </p>
+            <div className="mb-16">
+              <AudioPlayer
+                src={getMoodAudio(page.mood)}
+                title={page.audioTitle}
+                duration={page.audioDuration}
+                defaultVolume={getMoodVolume(page.mood)}
+              />
             </div>
           </ScrollReveal>
 
@@ -203,15 +206,17 @@ export default async function ColoringDetailPage({
                 <span className="text-sm font-medium tracking-wide">Color online</span>
               </Link>
 
-              {/* Download PDF */}
-              <button
+              {/* Download for printing */}
+              <a
+                href={getColoringImage(page.slug)}
+                download={`colorbreath-${page.slug}.webp`}
                 className="group inline-flex items-center gap-3 rounded-full border border-text-muted/30 px-7 py-3.5 text-sm font-light tracking-wide text-text-secondary transition-all duration-500 hover:border-text-secondary/50 hover:text-text-primary"
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                 </svg>
-                Download PDF
-              </button>
+                Download for print
+              </a>
             </div>
           </ScrollReveal>
 
