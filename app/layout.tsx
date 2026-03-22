@@ -71,7 +71,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${playfair.variable} ${outfit.variable} ${cormorant.variable} antialiased min-w-0`}
+        className={`${playfair.variable} ${outfit.variable} ${cormorant.variable} antialiased`}
       >
         {children}
       </body>

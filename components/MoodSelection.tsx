@@ -9,7 +9,7 @@ const moods = [
     phrase: "Find your center",
     color: "#b5a7c8",
     bgImage:
-      "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=400&q=80&auto=format",
+      "/bg/mood-calm.jpg",
     icon: (
       <svg viewBox="0 0 48 48" className="h-10 w-10" fill="none" stroke="currentColor" strokeWidth={1}>
         <circle cx="24" cy="24" r="18" />
@@ -23,7 +23,7 @@ const moods = [
     phrase: "Evening peace",
     color: "#7e8db5",
     bgImage:
-      "https://images.unsplash.com/photo-1532767153582-b1a0e5145009?w=400&q=80&auto=format",
+      "/bg/mood-sleep.jpg",
     icon: (
       <svg viewBox="0 0 48 48" className="h-10 w-10" fill="none" stroke="currentColor" strokeWidth={1}>
         <path d="M32 26A14 14 0 0 1 20 6a14 14 0 1 0 12 20z" strokeLinecap="round" strokeLinejoin="round" />
@@ -35,7 +35,7 @@ const moods = [
     phrase: "Morning light",
     color: "#c9a87c",
     bgImage:
-      "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=400&q=80&auto=format",
+      "/bg/mood-energy.jpg",
     icon: (
       <svg viewBox="0 0 48 48" className="h-10 w-10" fill="none" stroke="currentColor" strokeWidth={1}>
         <circle cx="24" cy="24" r="7" />
@@ -48,7 +48,7 @@ const moods = [
     phrase: "Gentle embrace",
     color: "#8ba583",
     bgImage:
-      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=80&auto=format",
+      "/bg/mood-comfort.jpg",
     icon: (
       <svg viewBox="0 0 48 48" className="h-10 w-10" fill="none" stroke="currentColor" strokeWidth={1}>
         <path d="M16 40C10 36 4 30 4 22a10 10 0 0 1 20 0" strokeLinecap="round" strokeLinejoin="round" />
@@ -64,7 +64,7 @@ export default function MoodSelection() {
       {/* Section heading */}
       <ScrollReveal animation="blur-in">
         <p className="mb-20 font-[family-name:var(--font-guidance)] text-2xl font-light italic text-text-secondary md:mb-24 md:text-3xl">
-          How are you feeling tonight?
+          How are you feeling right now?
         </p>
       </ScrollReveal>
 

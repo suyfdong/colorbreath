@@ -34,31 +34,43 @@ function ExploreContent() {
   });
 
   return (
-    <main className="min-h-screen pt-32 pb-20">
-      {/* Header */}
-      <section className="flex flex-col items-center px-6 pb-16">
-        <ScrollReveal animation="blur-in">
-          <p className="mb-4 text-xs font-light tracking-[0.3em] text-accent-amber/60 uppercase">
-            Explore
-          </p>
-        </ScrollReveal>
-        <ScrollReveal animation="fade-up" delay={100}>
-          <h1 className="mb-6 text-center font-[family-name:var(--font-heading)] text-4xl font-normal text-text-primary md:text-5xl">
-            Free Printable Coloring Pages for Adults
-          </h1>
-        </ScrollReveal>
-        <ScrollReveal animation="fade-in" delay={200}>
-          <p className="max-w-lg text-center text-sm font-light leading-relaxed text-text-secondary">
-            Browse our collection of mindfulness coloring pages — mandala
-            patterns, floral designs, and cozy scenes, each paired with ambient
-            sounds. Filter by mood to find the perfect page for stress relief,
-            sleep, or a creative energy boost.
-          </p>
-        </ScrollReveal>
-      </section>
+    <main className="relative min-h-screen pt-32 pb-20">
+      {/* Background image */}
+      <div
+        className="pointer-events-none fixed inset-0"
+        style={{
+          backgroundImage: "url('/bg/explore-warm.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
+        }}
+      />
+      <div className="pointer-events-none fixed inset-0 bg-bg-deep/65" />
 
-      {/* Filters */}
-      <section className="flex flex-col items-center gap-5 px-6 pb-16">
+      {/* Header + Filters with backdrop */}
+      <section className="relative z-10 mb-8">
+        <div className="absolute inset-0 bg-bg-deep/50 backdrop-blur-sm" />
+        <div className="relative flex flex-col items-center px-6 pt-0 pb-8">
+          <ScrollReveal animation="blur-in">
+            <p className="mb-4 text-xs font-light tracking-[0.3em] text-accent-amber/60 uppercase">
+              Explore
+            </p>
+          </ScrollReveal>
+          <ScrollReveal animation="fade-up" delay={100}>
+            <h1 className="mb-6 text-center font-[family-name:var(--font-heading)] text-4xl font-normal text-text-primary md:text-5xl">
+              Free Printable Coloring Pages for Adults
+            </h1>
+          </ScrollReveal>
+          <ScrollReveal animation="fade-in" delay={200}>
+            <p className="max-w-lg text-center text-sm font-light leading-relaxed text-text-secondary">
+              Browse our collection of mindfulness coloring pages — mandala
+              patterns, floral designs, and cozy scenes, each paired with ambient
+              sounds. Filter by mood to find the perfect page for stress relief,
+              sleep, or a creative energy boost.
+            </p>
+          </ScrollReveal>
+
+          {/* Filters */}
+          <div className="mt-10 flex flex-col items-center gap-5">
         {/* Mood filters */}
         <div className="flex flex-wrap justify-center gap-3">
           <button
@@ -117,11 +129,13 @@ function ExploreContent() {
               </button>
             );
           })}
+          </div>
+        </div>
         </div>
       </section>
 
       {/* Grid */}
-      <section className="mx-auto max-w-6xl px-6">
+      <section className="relative z-10 mx-auto max-w-6xl px-6">
         {filtered.length === 0 ? (
           <p className="py-20 text-center font-[family-name:var(--font-guidance)] text-lg italic text-text-muted">
             No pages match this combination. Try a different filter.
@@ -134,7 +148,7 @@ function ExploreContent() {
                 <ScrollReveal key={page.slug} animation="fade-up" delay={i * 80}>
                   <Link
                     href={`/coloring/${page.slug}`}
-                    className="group relative flex flex-col overflow-hidden rounded-2xl bg-bg-elevated transition-all duration-700 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40"
+                    className="group relative flex flex-col overflow-hidden rounded-2xl bg-bg-elevated/70 backdrop-blur-md transition-all duration-700 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40"
                   >
                     {/* Preview area */}
                     <div className="relative flex items-center justify-center bg-white/[0.03] p-8">
@@ -212,7 +226,7 @@ function ExploreContent() {
       </section>
 
       {/* Bottom SEO content */}
-      <section className="mx-auto max-w-2xl px-6 pb-20 pt-8">
+      <section className="relative z-10 mx-auto max-w-2xl px-6 pb-20 pt-8">
         <div className="border-t border-bg-surface pt-12 text-center">
           <h2 className="mb-5 font-[family-name:var(--font-heading)] text-xl font-normal text-text-primary">
             Coloring as a mindfulness practice

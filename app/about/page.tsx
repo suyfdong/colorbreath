@@ -26,7 +26,7 @@ export default function AboutPage() {
             className="pointer-events-none absolute inset-0"
             style={{
               backgroundImage:
-                "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=60&auto=format')",
+                "url('/bg/about-beach.jpg')",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}

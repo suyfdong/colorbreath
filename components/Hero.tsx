@@ -10,7 +10,7 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=1920&q=80&auto=format')",
+            "url('/bg/hero-tree.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center 40%",
         }}
@@ -51,7 +51,7 @@ export default function Hero() {
           A mindful coloring space for your quiet moments
         </p>
         <p
-          className="animate-fade-up mt-3 max-w-sm text-center text-sm font-light text-text-muted/70"
+          className="animate-fade-up mt-3 max-w-sm text-center text-sm font-light text-white/70 drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]"
           style={{ animationDelay: "3.0s" }}
         >
           Free printable adult coloring pages &middot; Ambient soundscapes &middot; No ads

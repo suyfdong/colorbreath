@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { label: "Today", href: "/today" },
@@ -11,6 +12,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -39,15 +41,22 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <div className="hidden items-center gap-7 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-light text-text-secondary transition-colors duration-300 hover:text-text-primary"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname.startsWith(link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm transition-colors duration-300 ${
+                  isActive
+                    ? "font-normal text-text-primary"
+                    : "font-light text-text-secondary hover:text-text-primary"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Mobile hamburger */}
@@ -77,16 +86,23 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="mt-3 flex flex-col items-center gap-5 rounded-2xl bg-bg-deep/90 px-10 py-8 backdrop-blur-xl md:hidden">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="text-base font-light text-text-secondary transition-colors hover:text-text-primary"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname.startsWith(link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className={`text-base transition-colors ${
+                  isActive
+                    ? "font-normal text-text-primary"
+                    : "font-light text-text-secondary hover:text-text-primary"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
       )}
     </nav>
