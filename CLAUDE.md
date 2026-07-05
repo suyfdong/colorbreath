@@ -6,17 +6,20 @@
 
 ## 技术栈
 - Next.js 16 (App Router) + Tailwind v4 + TypeScript
-- 部署：Cloudflare Pages
+- 部署：Cloudflare Pages（已上线 colorbreath.com）
+- 构建：`output: 'export'` 纯静态导出，不支持 SSR/API routes/middleware
 - 支付：Creem（Phase 2）
 - 数据：JSON 文件驱动，无数据库
-- 图片/音频：CDN 托管，构建时离线生成
+- 图片/音频：本地 `public/` 托管，零外部依赖
+- 分析：Google Analytics GA4 (G-5611PQK6GF)
+- SEO：Google Search Console 已验证，sitemap 已提交
 
 ## 设计原则
 - **深色暖调**主题（烛光感，非科技冷感）
 - 琥珀/蜂蜜色强调，4 种情绪各有主题色（Calm 淡紫 / Sleep 靛蓝 / Energy 琥珀 / Comfort 薄荷绿）
 - 字体：Playfair Display（标题）、Outfit（正文）、Cormorant Garamond（引导语斜体）
 - 动画节奏慢（800ms+），滚动触发渐入
-- 自定义花朵鼠标 + 手电筒光圈效果
+- 自定义白色箭头鼠标（CSS `cursor:none` + SVG），Paint 页用原生 crosshair
 - 大量留白，低内容密度
 
 ## 核心约束（不可违反）
@@ -33,10 +36,11 @@
 /                         首页（已完成）
 /today                    今日涂色推荐
 /explore                  浏览所有涂色页（按情绪筛选）
-/explore?mood=[mood]      情绪筛选
+/explore/[mood]           情绪 SEO 落地页（calm/sleep/energy/comfort，独立 metadata）
+/explore?mood=[mood]      情绪筛选（客户端，canonical 指向 /explore）
 /coloring/[slug]          涂色页详情（预览+下载+音频+引导）
 /coloring/[slug]/paint    在线涂色全屏体验（Canvas）
-/favorites                推荐好物（Affiliate）
+/favorites                推荐好物（Coming Soon，待申请 Affiliate）
 /about                    关于页
 ```
 

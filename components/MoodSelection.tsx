@@ -73,7 +73,7 @@ export default function MoodSelection() {
         {moods.map((mood, i) => (
           <ScrollReveal key={mood.name} animation="fade-up" delay={i * 120}>
             <Link
-              href={`/explore?mood=${mood.name.toLowerCase()}`}
+              href={`/explore/${mood.name.toLowerCase()}`}
               className="group relative flex flex-col items-center justify-end overflow-hidden rounded-2xl transition-all duration-700 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40"
               style={{ aspectRatio: "3/4" }}
             >
